@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="460" viewBox="0 0 1400 460" role="img" aria-labelledby="title desc">
+  <title id="title">Expo PhotoBooth</title>
+  <desc id="desc">Un recuerdo para brillar. Expo CET 1 - Laboratorio de Redes I.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1C1034"/>
+      <stop offset=".55" stop-color="#45206B"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#F472B6"/>
+      <stop offset="1" stop-color="#FACC15"/>
+    </linearGradient>
+    <filter id="shadow" x="-.3" y="-.3" width="1.6" height="1.7">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#10071E" flood-opacity=".42"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="460" rx="34" fill="url(#bg)"/>
+  <circle cx="1140" cy="230" r="188" fill="#F472B6" opacity=".12"/>
+  <circle cx="1260" cy="78" r="82" fill="#FACC15" opacity=".13"/>
+  <path d="M0 390c180-90 300 85 485 12s303-20 455 38v20H0z" fill="#F472B6" opacity=".09"/>
+  <g fill="#FACC15" font-family="Arial,sans-serif" font-weight="700">
+    <text x="82" y="95" font-size="28">✦</text><text x="495" y="365" font-size="24">✧</text>
+    <text x="1040" y="75" font-size="34">✦</text><text x="1325" y="310" font-size="30">✧</text>
+  </g>
+  <g fill="#F472B6" font-family="Arial,sans-serif" font-weight="700">
+    <text x="555" y="125" font-size="24">♥</text><text x="84" y="350" font-size="26">✿</text>
+    <text x="920" y="388" font-size="25">♥</text>
+  </g>
+  <g transform="translate(1030 76) rotate(8 140 150)" filter="url(#shadow)">
+    <rect x="0" y="0" width="250" height="310" rx="12" fill="#FFF9FF"/>
+    <rect x="18" y="18" width="214" height="214" rx="5" fill="url(#paper)"/>
+    <circle cx="125" cy="117" r="62" fill="#fff" opacity=".24"/>
+    <text x="125" y="153" text-anchor="middle" font-size="90" font-family="Arial,sans-serif">☺</text>
+    <text x="125" y="272" text-anchor="middle" fill="#392452" font-size="18" font-family="Arial,sans-serif" font-weight="700" letter-spacing="2">UN RECUERDO</text>
+  </g>
+  <g fill="#fff" font-family="Arial,Helvetica,sans-serif">
+    <text x="82" y="144" fill="#FACC15" font-size="18" font-weight="700" letter-spacing="5">🎀 EXPO CET 1 · LABORATORIO DE REDES I</text>
+    <text x="78" y="225" font-size="66" font-weight="800" letter-spacing="-2">Expo PhotoBooth</text>
+    <text x="82" y="278" fill="#F9B5D8" font-size="31" font-weight="600">Tu sonrisa, tu recuerdo ✨</text>
+    <text x="84" y="337" fill="#E9DDF3" font-size="19">Fotos, filtros y recuerdos para compartir en la Expo.</text>
+  </g>
+</svg>
+
