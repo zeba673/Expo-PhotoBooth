@@ -1,28 +1,91 @@
-# Expo PhotoBooth
+<div align="center">
 
-MVP de la cabina de Expo Redes I. El programa se ejecuta en la computadora Windows; las fotos se guardan en esa computadora y no se suben a internet.
+![Expo PhotoBooth — Tu sonrisa, tu recuerdo](docs/banner.svg)
 
-## Requisitos
+### 🎀✨ Tu sonrisa, tu recuerdo ✨🎀
 
-- Windows 10 u 11.
-- Node.js LTS instalado (incluye npm).
-- Una webcam integrada o conectada.
+**Una cabina de fotos para celebrar Expo CET 1 · Laboratorio de Redes I**
 
-## Iniciar
+💖 📸 🌸 💫 🌸 📸 💖
 
-Hacé doble clic en `INICIAR.bat`. La primera vez instala las dependencias y luego abre la aplicación. Mantené abierta la ventana de consola mientras se usa la cabina. Autorizá el acceso a la webcam cuando el navegador lo solicite y permití la conexión en redes privadas si Windows Firewall lo pregunta. Si el puerto habitual ya está ocupado, el servidor elige el siguiente disponible.
+[![React](https://img.shields.io/badge/React-19-7C3AED?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6-F472B6?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-local%20server-FACC15?style=for-the-badge&logo=nodedotjs&logoColor=1C1034)](https://nodejs.org/)
+[![Status](https://img.shields.io/badge/status-MVP%20en%20marcha-1C1034?style=for-the-badge)](#-qué-podés-hacer)
 
-También se puede iniciar manualmente desde esta carpeta con `npm install` (solo la primera vez) y `npm run dev`.
+</div>
 
-## Funciones
+---
 
-- Bienvenida con identidad visual Colorido / Expo.
-- Foto individual o tira vertical de cuatro exposiciones.
-- Vista en vivo de la webcam, cuenta regresiva de tres segundos y cancelación.
-- Efectos en vivo: sin filtro, blanco y negro, sepia y colores Expo; se aplican también a las fotos guardadas.
-- Composición con marco y título “Expo CET 1 - Laboratorio de Redes I”; descarga local en JPG.
-- QR para abrir una galería y descargar las fotos desde un celular conectado a la misma Wi‑Fi.
-- Interfaz adaptable a pantallas pequeñas.
+## 💌 La idea
 
-La cámara funciona en `localhost` (origen seguro de navegador). El QR abre la galería servida desde esta computadora; celular y cabina deben estar conectados a la misma Wi‑Fi. El QR se genera al iniciar y queda listo en la pantalla de cada foto. La ventana de consola muestra la dirección local codificada. Las fotos quedan guardadas en `data/photos` dentro de la carpeta del proyecto. El servidor solo debe usarse en la red privada del evento.
+Un rinconcito para posar, jugar con filtros y llevarse una foto de la Expo. La cabina corre en una computadora con Windows y webcam; las imágenes se guardan ahí mismo y se pueden descargar desde el celular escaneando un QR. ✨
+
+## 💖 Qué podés hacer
+
+| 🌷 Momento | ✨ Qué pasa |
+|:--|:--|
+| Elegir tu estilo | Foto individual o una tira con cuatro poses. |
+| Probar un look | Sin filtro, blanco y negro, sepia o colores Expo, con vista previa en vivo. |
+| Preparar la pose | Cuenta regresiva de 3 segundos, con opción de cancelar. |
+| Guardar el recuerdo | JPG con marco y título **EXPO CET 1 - LABORATORIO DE REDES I**. |
+| Compartir la magia | QR a una galería local para abrir y descargar las fotos desde el celular. |
+
+## 🎨 Paleta de la cabina
+
+<div align="center">
+
+🟪 `#1C1034` Violeta noche　 🟣 `#7C3AED` Violeta　 💗 `#F472B6` Rosa　 💛 `#FACC15` Amarillo　 🤍 Blanco
+
+</div>
+
+## 🚀 Cómo ponerla en marcha
+
+### En Windows
+
+1. Instalá [Node.js LTS](https://nodejs.org/) si todavía no está instalado.
+2. Abrí `INICIAR.bat` con doble clic.
+3. Permití el acceso a la webcam y, si Windows lo pregunta, habilitá la red privada.
+4. Dejá abierta la ventana de Expo PhotoBooth mientras funciona la cabina.
+
+La primera vez se descargan las dependencias, así que hace falta internet durante la instalación.
+
+### Desde una terminal
+
+```bash
+npm install
+npm run dev
+```
+
+## 📱 Compartir con el QR
+
+Conectá la computadora y el celular a la **misma Wi-Fi**. Al terminar una foto, escaneá el QR y descargá las imágenes desde la galería. Los JPG se guardan en `data/photos` en la computadora de la cabina.
+
+> 🔒 La galería funciona dentro de la red local y no tiene contraseña en esta versión. Usala en la Wi-Fi privada del evento, no en una red pública.
+
+## 🧁 Tecnologías
+
+**React + Vite** para la experiencia visual · **Node.js** para el servidor local · **Canvas** para componer las fotos · **QRCode** para crear el código de la galería.
+
+Las imágenes se guardan como archivos JPG. FastAPI y SQLite se contemplaron como posibles pasos futuros, pero no forman parte de este MVP.
+
+## 📂 Mirá también
+
+- [📖 Informe completo del proyecto](INFORME_PROYECTO.md)
+- [📸 Pantallas y estilos](src/App.jsx)
+- [🎀 El banner del proyecto](docs/banner.svg)
+
+## 🛠️ Antes del gran día
+
+- Probar cámara, iluminación y encuadre en el equipo definitivo.
+- Escanear el QR y probar descargas con celulares conectados a la Wi-Fi del evento.
+- Acordar cuándo se borrarán las fotos guardadas después de la Expo.
+
+<div align="center">
+
+### Hecho con 💖, muchas sonrisas y un poquito de ✨
+
+**Expo CET 1 · Laboratorio de Redes I · 2026**
+
+</div>
 
