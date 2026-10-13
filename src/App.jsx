@@ -23,6 +23,7 @@ export default function App() {
   const streamRef = useRef(null)
   const timeoutRef = useRef(null)
   const runRef = useRef(0)
+  const originalUploadsRef = useRef([])
   const [screen, setScreen] = useState(() => window.location.pathname === '/gallery' ? 'gallery' : 'welcome')
   const [layout, setLayout] = useState('single')
   const [filter, setFilter] = useState(FILTERS[0])
@@ -36,6 +37,7 @@ export default function App() {
   const [photoUrl, setPhotoUrl] = useState('')
   const [shareQr, setShareQr] = useState(null)
   const [photoSaved, setPhotoSaved] = useState(false)
+  const [originalStatus, setOriginalStatus] = useState('idle')
   const [galleryPhotos, setGalleryPhotos] = useState([])
   const photoUrlRef = useRef('')
 
@@ -120,20 +122,34 @@ export default function App() {
       tick -= 1
       if (tick === 0) {
         setCountdown(null)
+        const original = document.createElement('canvas')
+        original.width = videoRef.current.videoWidth
+        original.height = videoRef.current.videoHeight
+        const originalCtx = original.getContext('2d')
+        originalCtx.translate(original.width, 0)
+        originalCtx.scale(-1, 1)
+        originalCtx.drawImage(videoRef.current, 0, 0)
+        const backup = canvasToJpeg(original).then((blob) => fetch('/api/originals', { method: 'POST', headers: { 'content-type': 'image/jpeg' }, body: blob }))
+          .then((response) => { if (!response.ok) throw new Error('No se pudo guardar el original.') })
+        backup.catch(() => {})
+        originalUploadsRef.current.push(backup)
+        setOriginalStatus('saving')
         const frame = document.createElement('canvas')
-        frame.width = videoRef.current.videoWidth
-        frame.height = videoRef.current.videoHeight
+        frame.width = original.width
+        frame.height = original.height
         const ctx = frame.getContext('2d')
-        ctx.translate(frame.width, 0)
-        ctx.scale(-1, 1)
         ctx.filter = filter.css
-        ctx.drawImage(videoRef.current, 0, 0)
+        ctx.drawImage(original, 0, 0)
         const next = [...captured, frame].slice(0, layout === 'strip' ? 4 : 1)
         setCaptured(next)
         if (layout === 'single' || next.length === 4) {
           const dataUrl = makePhotoFromFrames(next, layout === 'strip').toDataURL('image/jpeg', 0.94)
           setPhoto(dataUrl)
           setPhotoSaved(false)
+          setOriginalStatus('saving')
+          Promise.allSettled(originalUploadsRef.current).then((results) => {
+            setOriginalStatus(results.every((result) => result.status === 'fulfilled') ? 'saved' : 'error')
+          })
           setScreen('result')
           setCameraState('idle')
           stopCamera()
@@ -163,6 +179,8 @@ export default function App() {
     setLayout(selectedLayout)
     setFilter(FILTERS[0])
     setCaptured([])
+    originalUploadsRef.current = []
+    setOriginalStatus('idle')
     setPhoto('')
     setPose('¿Qué pose te va a tocar?')
     setPoseChosen(false)
@@ -216,7 +234,7 @@ export default function App() {
       {captured.length > 0 && layout === 'strip' && <div className="shot-progress">{captured.map((_, i) => <span key={i} className="shot-dot done">✓</span>)}{Array.from({ length: 4 - captured.length }, (_, i) => <span key={`empty-${i}`} className="shot-dot">{captured.length + i + 1}</span>)}</div>}
       <p className="privacy-note">🔒 Tus fotos se procesan en esta computadora.</p>
     </section>}
-    {screen === 'result' && <section className="result-screen screen-card"><div className="result-copy"><span className="eyebrow">¡LISTO!</span><h1>Un recuerdo<br /><em>para vos.</em></h1><p>Descargá la foto o escaneá el QR con tu celular.</p><a className="primary-button download-button" href={photoUrl} download={`expo-cet-1-${layout === 'strip' ? 'tira' : 'foto'}-${new Date().toISOString().slice(0, 10)}.jpg`}>DESCARGAR FOTO <span>↓</span></a><button className="secondary-button" onClick={() => startSession(layout)}>SACAR OTRA FOTO <span>↻</span></button><button className="text-button" onClick={reset}>Volver al inicio</button></div><div className="result-preview"><div className="preview-label">EXPO CET 1 · LABORATORIO DE REDES I</div>{photoUrl && <img src={photoUrl} alt="Vista previa de tu recuerdo de Expo CET 1 - Laboratorio de Redes I" />}{shareQr && photoSaved ? <div className="share-qr"><img src={shareQr.qr} alt="Código QR para abrir la galería en tu celular" /><div><strong>ESCANEÁ Y DESCARGÁ</strong><small>Conectate a la Wi‑Fi de la Expo</small><small>{shareQr.galleryUrl}</small></div></div> : <p className="qr-loading">{shareQr ? 'Guardando tu foto para el celular…' : 'Preparando el QR para compartir…'}</p>}</div></section>}
+    {screen === 'result' && <section className="result-screen screen-card"><div className="result-copy"><span className="eyebrow">¡LISTO!</span><h1>Un recuerdo<br /><em>para vos.</em></h1><p>Descargá la foto o escaneá el QR con tu celular.</p><p className={`original-status ${originalStatus}`} role="status">{originalStatus === 'saving' ? 'Guardando respaldo original…' : originalStatus === 'saved' ? `Original${layout === 'strip' ? 'es' : ''} guardado${layout === 'strip' ? 's' : ''} en data/originals.` : originalStatus === 'error' ? 'No se pudo guardar el respaldo original. Revisá data/originals.' : ''}</p><a className="primary-button download-button" href={photoUrl} download={`expo-cet-1-${layout === 'strip' ? 'tira' : 'foto'}-${new Date().toISOString().slice(0, 10)}.jpg`}>DESCARGAR FOTO <span>↓</span></a><button className="secondary-button" onClick={() => startSession(layout)}>SACAR OTRA FOTO <span>↻</span></button><button className="text-button" onClick={reset}>Volver al inicio</button></div><div className="result-preview"><div className="preview-label">EXPO CET 1 · LABORATORIO DE REDES I</div>{photoUrl && <img src={photoUrl} alt="Vista previa de tu recuerdo de Expo CET 1 - Laboratorio de Redes I" />}{shareQr && photoSaved ? <div className="share-qr"><img src={shareQr.qr} alt="Código QR para abrir la galería en tu celular" /><div><strong>ESCANEÁ Y DESCARGÁ</strong><small>Conectate a la Wi‑Fi de la Expo</small><small>{shareQr.galleryUrl}</small></div></div> : <p className="qr-loading">{shareQr ? 'Guardando tu foto para el celular…' : 'Preparando el QR para compartir…'}</p>}</div></section>}
     <footer className="footer"><span>EXPO REDES I <b>·</b> 2026</span><span>HECHO CON <i>♥</i> EN LA EXPO</span></footer>
   </main>
 }
@@ -252,5 +270,9 @@ function makePhotoFromFrames(frames, strip) {
   ctx.font = `700 ${Math.round(width * 0.031)}px system-ui, sans-serif`
   ctx.fillText('Expo PhotoBooth  ·  2026', canvas.width / 2, bandY + footer * 0.82)
   return canvas
+}
+
+function canvasToJpeg(canvas) {
+  return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('No se pudo convertir la imagen.')), 'image/jpeg', 0.94))
 }
 
