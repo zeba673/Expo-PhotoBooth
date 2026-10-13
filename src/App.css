@@ -25,7 +25,7 @@
 .screen-card{margin:26px 0 20px;border-radius:24px;border-color:#ffffff1a;background:linear-gradient(145deg,#ffffff0b,#ffffff03);box-shadow:0 22px 65px #09031440}
 h1{line-height:1.04;letter-spacing:-.035em;text-wrap:balance}
 .welcome{padding:clamp(44px,7vw,84px) clamp(28px,7vw,92px) 42px;column-gap:clamp(28px,6vw,78px)}
-.welcome h1{max-width:9ch;font-size:clamp(54px,6.5vw,78px)}
+.welcome h1{max-width:15ch;font-size:clamp(50px,5.7vw,68px)}
 .welcome-copy>p,.section-heading>p,.camera-heading p,.result-copy>p{font-size:15px;line-height:1.75;max-width:44ch;font-weight:500;color:#e0d7e9}
 .feature-row{gap:8px;margin-top:24px}.feature-row span{padding:9px 12px;font-size:11px}
 .welcome-art{height:370px}.polaroid{width:220px;border-radius:7px;transform:rotate(5deg);transition:transform .3s ease,box-shadow .3s ease}.welcome-art:hover .polaroid{transform:rotate(1deg) translateY(-5px);box-shadow:0 30px 60px #0a061480}
@@ -45,7 +45,7 @@ button:disabled{cursor:not-allowed}
 .journey-progress .active{color:var(--yellow)}.journey-progress .active i,.journey-progress .complete i{background:var(--yellow);border-color:var(--yellow);color:var(--dark)}
 .pose-screen{padding:32px 7% 46px;grid-template-columns:1fr 1fr;grid-template-rows:auto minmax(330px,1fr) auto;gap:8px clamp(28px,5vw,64px);min-height:0}
 .pose-screen>.back-button{left:7%;top:30px}.pose-screen>.journey-progress{grid-row:1;margin-bottom:0}
-.pose-intro{grid-column:1;grid-row:2}.pose-intro h1{font-size:clamp(52px,6vw,74px);max-width:8ch;margin:16px 0}
+.pose-intro{grid-column:1;grid-row:2}.pose-intro h1{font-size:clamp(52px,6vw,74px);max-width:none;margin:16px 0}
 .pose-intro p{font-size:15px;line-height:1.75;max-width:38ch;color:#e0d7e9}
 .pose-stage{grid-column:2;grid-row:2/4;min-height:0;border:0;border-radius:0;background:transparent;box-shadow:none;padding:18px}
 .pose-wheel-large{width:min(280px,70vw);border-width:9px;box-shadow:0 0 0 7px #ffffff1a,0 20px 44px #07021088;transition:transform 2.2s cubic-bezier(.18,.72,.18,1),box-shadow .25s ease}
