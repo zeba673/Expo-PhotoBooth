@@ -7,6 +7,16 @@ const FILTERS = [
   { id: 'sepia', label: 'Sepia', css: 'sepia(.85) saturate(1.1) contrast(1.05)' },
   { id: 'expo', label: 'Colores Expo', css: 'saturate(1.55) contrast(1.08) hue-rotate(-8deg)' },
 ]
+const POSES = [
+  'Hacé una pose de estrella ✨',
+  'Mandá un corazón con las manos 💖',
+  'Poné cara de sorpresa 😲',
+  'Saludá como una celebridad 👋',
+  'Mostrá tu mejor sonrisa 😊',
+  'Hacé tu pose de superhéroe 🦸',
+  'Posá como tapa de revista 💅',
+  '¡Una pose divertida en equipo! 🤗',
+]
 
 export default function App() {
   const videoRef = useRef(null)
@@ -16,6 +26,8 @@ export default function App() {
   const [screen, setScreen] = useState(() => window.location.pathname === '/gallery' ? 'gallery' : 'welcome')
   const [layout, setLayout] = useState('single')
   const [filter, setFilter] = useState(FILTERS[0])
+  const [pose, setPose] = useState('¿Qué pose te va a tocar?')
+  const [wheelRotation, setWheelRotation] = useState(0)
   const [cameraState, setCameraState] = useState('idle')
   const [message, setMessage] = useState('')
   const [countdown, setCountdown] = useState(null)
@@ -137,6 +149,14 @@ export default function App() {
     timeoutRef.current = window.setTimeout(step, 1000)
   }
 
+  const spinPose = () => {
+    const current = POSES.indexOf(pose)
+    let next = Math.floor(Math.random() * (POSES.length - Number(current >= 0)))
+    if (current >= 0 && next >= current) next += 1
+    setPose(POSES[next])
+    setWheelRotation((angle) => angle + 1080 + Math.floor(Math.random() * 360))
+  }
+
   const startSession = async (selectedLayout) => {
     setLayout(selectedLayout)
     setFilter(FILTERS[0])
@@ -180,6 +200,7 @@ export default function App() {
     </section>}
     {screen === 'camera' && <section className="camera-screen screen-card"><div className="camera-heading"><button className="back-button" onClick={reset}>← Salir</button><div><span className="eyebrow">{layout === 'strip' ? 'TIRA DE 4 FOTOS' : 'FOTO INDIVIDUAL'}</span><h1>{countdown !== null ? '¡Preparados!' : layout === 'strip' && captured.length ? `Foto ${captured.length + 1} de 4` : 'Una sonrisa y…'}</h1><p>{cameraState === 'loading' ? 'Estamos preparando la cámara…' : layout === 'strip' ? `Fotos restantes: ${remaining}` : 'Mirá a la cámara y tocá el botón.'}</p></div><span className="step-pill">{layout === 'strip' ? `${captured.length}/4` : 'EN VIVO'}</span></div>
       <div className="filter-picker" role="group" aria-label="Elegí un efecto"><span>EFECTOS</span>{FILTERS.map((option) => <button type="button" key={option.id} className={`filter-chip ${filter.id === option.id ? 'selected' : ''}`} aria-pressed={filter.id === option.id} onClick={() => setFilter(option)}>{option.label}</button>)}</div>
+      <div className="pose-roulette"><div className="pose-wheel" style={{ transform: `rotate(${wheelRotation}deg)` }} aria-hidden="true">✦</div><div className="pose-copy"><span>RULETA DE POSES</span><strong aria-live="polite">{pose}</strong></div><button type="button" className="spin-button" onClick={spinPose}>GIRAR RULETA <span>↻</span></button></div>
       <div className="camera-stage"><video ref={videoRef} autoPlay playsInline muted className={cameraState === 'ready' ? 'video-ready' : ''} style={{ filter: filter.css }} /><div className="camera-placeholder"><span>📷</span><p>{cameraState === 'loading' ? 'Conectando la cámara…' : cameraState === 'error' ? 'Cámara no disponible' : 'Tu cámara aparecerá acá'}</p></div>{cameraState === 'ready' && <div className="live-label"><i /> EN VIVO</div>}{countdown !== null && <div className="countdown-overlay"><span>{countdown || '¡YA!'}</span></div>}</div>
       {message && <div className="inline-message" role="alert">{message}<button onClick={() => setMessage('')}>×</button></div>}
       {cameraState === 'error' ? <div className="camera-actions"><button className="primary-button" onClick={openCamera}>REINTENTAR <span>↻</span></button><button className="text-button" onClick={reset}>Elegir otro formato</button></div> : <div className="camera-actions">{cameraState === 'ready' && countdown === null && <button className="capture-button" onClick={takeShot}><span>📸</span>{layout === 'strip' && captured.length ? 'SIGUIENTE FOTO' : 'SACAR FOTO'} <b>→</b></button>}{countdown !== null && <button className="text-button cancel-button" onClick={cancelCountdown}>Cancelar temporizador</button>}</div>}
