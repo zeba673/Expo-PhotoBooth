@@ -126,7 +126,7 @@ No se utiliza FastAPI ni SQLite en el MVP actual. Se habían considerado como ar
 5. Si Windows Firewall pregunta, permitir el acceso en la red privada del evento.
 6. Para compartir, conectar el celular a la misma Wi-Fi que la computadora y escanear el QR mostrado en la pantalla del resultado.
 
-Las fotos quedan en `data/photos` dentro de la carpeta del proyecto. El servidor muestra en su consola la dirección local que codifica el QR.
+Las fotos decoradas quedan en `data/photos` dentro de la carpeta del proyecto. Las capturas originales, sin filtro ni marco, se guardan como respaldo en `data/originals`; en el formato tira se almacena cada una de las cuatro tomas por separado. El servidor muestra en su consola la dirección local que codifica el QR.
 
 ## 10. Privacidad y límites actuales
 
