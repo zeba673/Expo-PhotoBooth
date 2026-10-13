@@ -8,7 +8,8 @@ import { createServer as createViteServer } from 'vite'
 
 let port = Number(process.env.PORT || 5173)
 const photosDir = join(process.cwd(), 'data', 'photos')
-await mkdir(photosDir, { recursive: true })
+const originalsDir = join(process.cwd(), 'data', 'originals')
+await Promise.all([mkdir(photosDir, { recursive: true }), mkdir(originalsDir, { recursive: true })])
 const portIsFree = (candidate) => new Promise((resolve, reject) => {
   const probe = createServer()
   probe.once('error', (error) => error.code === 'EADDRINUSE' ? resolve(false) : reject(error))
@@ -24,6 +25,19 @@ const galleryQr = await QRCode.toDataURL(galleryUrl, { width: 240, margin: 1, co
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`)
+  if (url.pathname === '/api/originals' && req.method === 'POST') {
+    if (!req.headers['content-type']?.startsWith('image/jpeg')) return res.writeHead(415).end('Solo se aceptan imágenes JPG.')
+    const chunks = []
+    let size = 0
+    for await (const chunk of req) {
+      size += chunk.length
+      if (size > 12 * 1024 * 1024) return res.writeHead(413).end('La imagen supera el límite de 12 MB.')
+      chunks.push(chunk)
+    }
+    const id = `${Date.now()}-${randomUUID()}.jpg`
+    await writeFile(join(originalsDir, id), Buffer.concat(chunks), { flag: 'wx' })
+    return res.writeHead(201, { 'content-type': 'application/json' }).end(JSON.stringify({ id }))
+  }
   if (url.pathname === '/api/photos' && req.method === 'POST') {
     if (!req.headers['content-type']?.startsWith('image/jpeg')) return res.writeHead(415).end('Solo se aceptan imágenes JPG.')
     const chunks = []
