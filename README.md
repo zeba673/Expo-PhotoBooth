@@ -27,6 +27,7 @@ Un rinconcito para posar, jugar con filtros y llevarse una foto de la Expo. La c
 |:--|:--|
 | Elegir tu estilo | Foto individual o una tira con cuatro poses. |
 | Probar un look | Sin filtro, blanco y negro, sepia o colores Expo, con vista previa en vivo. |
+| Inspirarte | Girá la ruleta para recibir una idea divertida de pose antes de la foto. |
 | Preparar la pose | Cuenta regresiva de 3 segundos, con opción de cancelar. |
 | Guardar el recuerdo | JPG con marco y título **EXPO CET 1 - LABORATORIO DE REDES I**. |
 | Compartir la magia | QR a una galería local para abrir y descargar las fotos desde el celular. |
