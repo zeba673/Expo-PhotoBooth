@@ -60,7 +60,7 @@ npm run dev
 
 ## 📱 Compartir con el QR
 
-Conectá la computadora y el celular a la **misma Wi-Fi**. Al terminar una foto, escaneá el QR y descargá las imágenes desde la galería. Los JPG se guardan en `data/photos` en la computadora de la cabina.
+Conectá la computadora y el celular a la **misma Wi-Fi**. Al terminar una foto, escaneá el QR y descargá las imágenes con marco desde la galería. Los JPG decorados se guardan en `data/photos`; cada captura original, sin filtros ni marco, queda como respaldo local en `data/originals` (en una tira se guarda cada toma por separado).
 
 > 🔒 La galería funciona dentro de la red local y no tiene contraseña en esta versión. Usala en la Wi-Fi privada del evento, no en una red pública.
 
