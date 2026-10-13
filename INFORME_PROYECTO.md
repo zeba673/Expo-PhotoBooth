@@ -35,11 +35,12 @@ El marco que se imprime en el JPG lleva el título **“EXPO CET 1 - LABORATORIO
 2. El visitante elige **Foto individual** o **Tira de 4 fotos**.
 3. El navegador solicita permiso para usar la webcam y muestra la imagen en vivo.
 4. Puede elegir sin filtro, blanco y negro, sepia o colores Expo. El efecto se ve en la cámara y también queda aplicado en el JPG.
-5. Al tocar el botón de captura comienza una cuenta regresiva de tres segundos. Se puede cancelar.
-6. En el modo individual se toma una foto. En el modo tira se hacen cuatro capturas independientes, cada una con su cuenta regresiva y el efecto elegido.
-7. El programa compone el resultado en un JPG con marco, colores y título de la Expo.
-8. La pantalla final ofrece la descarga directa en la computadora y muestra el QR para abrir la galería en un celular.
-9. Desde la galería, cada imagen tiene una opción para descargarla.
+5. Puede girar una ruleta para obtener una idea de pose.
+6. Al tocar el botón de captura comienza una cuenta regresiva de tres segundos. Se puede cancelar.
+7. En el modo individual se toma una foto. En el modo tira se hacen cuatro capturas independientes, cada una con su cuenta regresiva y el efecto elegido.
+8. El programa compone el resultado en un JPG con marco, colores y título de la Expo.
+9. La pantalla final ofrece la descarga directa en la computadora y muestra el QR para abrir la galería en un celular.
+10. Desde la galería, cada imagen tiene una opción para descargarla.
 
 ## 5. Funciones incluidas en el MVP
 
@@ -49,6 +50,7 @@ El marco que se imprime en el JPG lleva el título **“EXPO CET 1 - LABORATORIO
 - Mensajes para errores comunes, como falta de cámara o permiso denegado.
 - Temporizador de tres segundos con opción de cancelación.
 - Cuatro efectos en vivo que también se aplican a la foto guardada.
+- Ruleta aleatoria de ideas de poses.
 - Captura individual y tira compuesta de cuatro exposiciones.
 - Composición y descarga JPG en la computadora de la cabina.
 - Guardado de los JPG en la carpeta local `data/photos`.
