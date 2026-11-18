@@ -49,13 +49,13 @@ Un rinconcito para posar, jugar con filtros y llevarse una foto de la Expo. La c
 3. Permití el acceso a la webcam y, si Windows lo pregunta, habilitá la red privada.
 4. Dejá abierta la ventana de Expo PhotoBooth mientras funciona la cabina.
 
-La primera vez se descargan las dependencias, así que hace falta internet durante la instalación.
+La primera vez se descargan las dependencias y Electron. Usá F11 para alternar pantalla completa o Esc para salir de ese modo.
 
 ### Desde una terminal
 
 ```bash
 npm install
-npm run dev
+npm run desktop
 ```
 
 ## 📱 Compartir con el QR
@@ -66,7 +66,7 @@ Conectá la computadora y el celular a la **misma Wi-Fi**. Al terminar una foto,
 
 ## 🧁 Tecnologías
 
-**React + Vite** para la experiencia visual · **Node.js** para el servidor local · **Canvas** para componer las fotos · **QRCode** para crear el código de la galería.
+**Electron** para la ventana de Windows · **React + Vite** para la interfaz · **Node.js** para el servidor local · **Canvas** para componer las fotos · **QRCode** para crear el código de la galería.
 
 Las imágenes se guardan como archivos JPG. FastAPI y SQLite se contemplaron como posibles pasos futuros, pero no forman parte de este MVP.
 
@@ -89,4 +89,3 @@ Las imágenes se guardan como archivos JPG. FastAPI y SQLite se contemplaron com
 **Expo CET 1 · Laboratorio de Redes I · 2026**
 
 </div>
-

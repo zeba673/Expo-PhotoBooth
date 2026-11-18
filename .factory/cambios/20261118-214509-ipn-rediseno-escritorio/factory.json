@@ -1,0 +1,42 @@
+{
+  "id": "20261118-214509-ipn-rediseno-escritorio",
+  "titulo": "Rediseñar Expo PhotoBooth para Windows",
+  "capacidad": "cabina-windows",
+  "fase": "espera_aprobacion_spec",
+  "spec": "openspec/changes/20261118-214509-ipn-rediseno-escritorio/specs/cabina-windows/spec.md",
+  "spec_sha256": null,
+  "spec_aprobada": null,
+  "requisitos": [],
+  "revision": null,
+  "oracle": null,
+  "modo": "confirmacion",
+  "eventos": [
+    {
+      "accion": "cambio_creado",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "decidio",
+      "cuando": "2026-11-18T21:45:09.707276+00:00",
+      "capacidad": "cabina-windows"
+    },
+    {
+      "accion": "mensaje",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "mensaje",
+      "cuando": "2026-11-18T21:46:28.034694+00:00",
+      "texto": "El usuario autorizó expresamente implementar desde el chat y pidió continuar sin solicitudes adicionales. La aprobación formal de terminal queda pendiente."
+    },
+    {
+      "accion": "mensaje",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "mensaje",
+      "cuando": "2026-11-18T21:53:01.906955+00:00",
+      "texto": "Implementado por autorización explícita en el chat. Compilación y arranque de Electron verificados. Prueba con cámara simulada: ruleta, filtro sepia, temporizador cancelable, tira de cuatro, guardado de originales y JPG final, y galería HTTP 200. QR actualizado a la IP Wi-Fi y sin caché. Cámara física y descarga desde un celular pendientes."
+    }
+  ]
+}
