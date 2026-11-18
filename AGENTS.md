@@ -1,0 +1,76 @@
+# ChatGPT project context
+
+This directory is a local mirror of the ChatGPT project “EXPO2026”.
+
+- Treat every file under `sources/` as read-only reference material.
+- Do not edit, rename, move, or delete synced project files.
+- These files may be replaced the next time a task is created from this ChatGPT project.
+
+
+## Project instructions
+
+This project has no custom instructions.
+
+<!-- oracle-factory agentes: inicio (generado por `oracle-factory agentes`; no se edita a mano) -->
+
+## Trabajar con Oracle Factory (para agentes)
+
+Este proyecto usa Oracle Factory: cada cambio tiene su propuesta, su spec, requisitos medidos por Oracle, una revisión y un cierre. Las decisiones son de una persona; un agente trabaja, propone y deja todo registrado.
+
+- Corré cada comando de Factory como agente: `oracle-factory --agente NOMBRE …` (tu nombre: `claude-code`, `codex`…). Sin `--agente` la acción se registra como de una persona, y no lo sos.
+- El próximo paso de un cambio lo dice `oracle-factory estado ID` (o `--json`): seguilo en vez de adivinar.
+- Antes de implementar, la spec tiene que estar aprobada por una persona. No edites a mano `.factory/`, `tareas/` ni `kb/` generado.
+- Los tests unitarios son parte del desarrollo y no suplantan a Oracle: escribilos primero, cuando sea posible, y no bloquean nada. Un test que ya existía no se edita para que pase sin dejarlo dicho a quien revisa (ver `docs/tests.md`).
+- Antes de pedir una revisión, mirá la lista previa (`docs/lista-previa.md`): reusá el ayudante que ya existe y arreglá la clase de problema entera, no sólo el caso. No bloquea nada.
+- Un cambio chico va por el **camino ligero** (`estado ID` lo dice en la línea «Camino de revisión» y en la clave `camino` del JSON): hasta 150 líneas de producto, sin contar pruebas, y sin tocar las reglas de decisión (`oracle_factory/cli.py`, `oracle_factory/modos.py`, `oracle_factory/flujo_revision.py`, `oracle_factory/flujo_medidas.py`, `oracle_factory/revision.py`, `oracle_factory/preparacion.py`, `oracle_factory/puerta.py`, `oracle_factory/unir.py`, `oracle_factory/alarmas.py`, `oracle_factory/acciones.py`, `oracle_factory/ganchos.py`). Alcanza **un revisor y una ronda**: si no trae hallazgos medios o altos, preparás la revisión; si los trae, el cambio sigue el **camino completo**. Es una orientación: no cambia ningún paso pendiente ni lo que decide una persona.
+- El procedimiento de punta a punta —qué mirar antes de abrir un cambio, el orden de los pasos, la evidencia, las rondas y cuándo parar— está en la skill: `oracle-factory skill` la muestra y `oracle-factory skill --instalar` la escribe en `.claude/skills/oracle-factory/SKILL.md` del proyecto.
+
+### Las decisiones, según el modo de trabajo
+
+Cada decisión tiene su comando. Con `--agente`, según el modo del cambio, el agente la decide, la propone (cuenta cuando una persona la confirma repitiendo el comando sin `--agente`) o no puede; una persona, desde su terminal, siempre decide:
+
+- Spec: `oracle-factory aprobar-spec ID` (aprobar la propuesta y la spec)
+- Medidas: `oracle-factory medir ID --requisito R --medida M --quitar-sin-medir` (elegir las medidas de un requisito)
+- Revisión: `oracle-factory revision ID --informe INFORME --revisor R --decision aprobar|cambios --hallazgos-abiertos N` (registrar la decisión de una revisión)
+- Cierre: `oracle-factory cerrar ID` (cerrar el cambio)
+
+| Modo | Spec | Medidas | Revisión | Cierre |
+| --- | --- | --- | --- | --- |
+| autonomo | decide | decide | decide | decide |
+| funcional | no puede (funcional) / decide (no funcional) | no puede (funcional) / decide (no funcional) | no puede (funcional) / decide (no funcional) | no puede |
+| **confirmacion** (el de este proyecto) | propone | propone | propone | no puede |
+
+### Sólo de una persona, en cualquier modo
+
+Con `--agente` se niegan o dejan sólo una propuesta. Pedíselos a la persona, con el comando listo para copiar:
+
+- `oracle-factory medir ID --confirmar`: confirmar las medidas que propuso un agente
+- `oracle-factory revisar ID`: revisar paso a paso y registrar la decisión (un agente la propone con --agente --decision --motivo)
+- `oracle-factory abandonar ID`: abandonar el cambio (un agente propone el motivo con --agente --motivo)
+- `oracle-factory modo ID MODO`: bajar la intervención humana de un cambio
+- `oracle-factory autonomia ETAPA MODO`: dar o quitar autonomía a un agente en integración, publicación o producción
+- `oracle-factory aprobar-sensor`: aprobar el sensor declarado: el comando que produce los hechos con oracle-factory evidencia
+- `oracle-factory soltar ID`: dejar de ser responsable de un cambio
+- `oracle-factory decidir-union ID CAMPO nuestro|suyo`: elegir qué vale cuando dos ramas decidieron distinto
+- `oracle-factory kb revisada NOTA`: marcar revisada una nota de personas del vault
+
+### Comandos de un agente (con `--agente NOMBRE`)
+
+- `oracle-factory --agente NOMBRE nuevo --capacidad C --sufijo S "TÍTULO"`: crear un cambio con su propuesta y su spec para completar
+- `oracle-factory --agente NOMBRE importar ID`: importar los requisitos de la spec aprobada
+- `oracle-factory --agente NOMBRE pedir-revision ID --a REVISOR`: pedir una revisión independiente del candidato
+- `oracle-factory --agente NOMBRE revision-preparar ID`: preparar el informe para que una persona revise
+- `oracle-factory --agente NOMBRE revisar ID --decision aprobar|cambios --motivo M`: proponer la decisión de la revisión
+- `oracle-factory --agente NOMBRE evidencia ID`: producir los hechos: correr el sensor del proyecto sobre un checkout limpio del commit
+- `oracle-factory --agente NOMBRE juzgar ID`: correr Oracle sobre la evidencia del candidato
+- `oracle-factory --agente NOMBRE mensaje ID "TEXTO"`: dejar un mensaje en el registro del cambio
+- `oracle-factory --agente NOMBRE tomar ID`: sumarse como agente al cambio
+- `oracle-factory --agente NOMBRE abandonar ID --motivo M`: proponer el motivo de un abandono
+
+### Consultar el proyecto (sólo lectura)
+
+- `oracle-factory estado ID`, `oracle-factory autopilot ID`, `oracle-factory preguntar "PREGUNTA"`, `oracle-factory por-que ARCHIVO:LÍNEA`, `oracle-factory buscar TEXTO`, `oracle-factory log ID`, `oracle-factory resumen`, `oracle-factory listar`.
+- `preguntar` devuelve pasajes vigentes del conocimiento del proyecto con su cita: úsalo antes de suponer por qué algo es como es.
+- Por MCP, las mismas consultas como herramientas: `claude mcp add factory -- oracle-factory --proyecto RUTA mcp` (o `codex mcp add …`).
+
+<!-- oracle-factory agentes: fin -->
