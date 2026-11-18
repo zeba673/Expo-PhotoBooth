@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, dialog, ipcMain } from 'electron'
+import { app, BrowserWindow, Menu, dialog, ipcMain, screen } from 'electron'
 import { fileURLToPath } from 'node:url'
 import { startServer } from '../server.js'
 
@@ -18,9 +18,15 @@ if (!app.requestSingleInstanceLock()) {
     process.chdir(fileURLToPath(new URL('../', import.meta.url)))
     const { port } = await startServer({ production: true })
     const origin = 'http://localhost:' + port
+    const portrait = screen.getAllDisplays().find(({ bounds }) => bounds.height > bounds.width)
+    const { x, y, width, height } = (portrait || screen.getPrimaryDisplay()).workArea
+    const windowHeight = Math.min(height, 1280)
+    const windowWidth = Math.min(width, Math.max(380, Math.round(windowHeight * 0.62)))
     window = new BrowserWindow({
-      title: 'Expo PhotoBooth', width: 1280, height: 820, minWidth: 760, minHeight: 600,
-      backgroundColor: '#1c1034', show: false,
+      title: 'Expo PhotoBooth', width: windowWidth, height: windowHeight,
+      x: x + Math.floor((width - windowWidth) / 2), y: y + Math.floor((height - windowHeight) / 2),
+      minWidth: 360, minHeight: 480, autoHideMenuBar: true,
+      backgroundColor: '#111919', show: false,
       webPreferences: { preload: fileURLToPath(new URL('./preload.cjs', import.meta.url)), sandbox: true, contextIsolation: true },
     })
     const contents = window.webContents
@@ -44,7 +50,7 @@ if (!app.requestSingleInstanceLock()) {
         window.setFullScreen(false)
       }
     })
-    window.once('ready-to-show', () => { window.maximize(); window.show() })
+    window.once('ready-to-show', () => { if (portrait) window.setFullScreen(true); window.show() })
     await window.loadURL(origin)
   }).catch((error) => {
     dialog.showErrorBox('No se pudo iniciar Expo PhotoBooth', error.message)

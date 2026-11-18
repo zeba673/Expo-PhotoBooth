@@ -1,0 +1,42 @@
+{
+  "id": "20261118-215748-5vy-pantalla-vertical",
+  "titulo": "Adaptar la cabina a un televisor vertical y renovar su identidad visual",
+  "capacidad": "cabina-vertical",
+  "fase": "espera_aprobacion_spec",
+  "spec": "openspec/changes/20261118-215748-5vy-pantalla-vertical/specs/cabina-vertical/spec.md",
+  "spec_sha256": null,
+  "spec_aprobada": null,
+  "requisitos": [],
+  "revision": null,
+  "oracle": null,
+  "modo": "confirmacion",
+  "eventos": [
+    {
+      "accion": "cambio_creado",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "decidio",
+      "cuando": "2026-11-18T21:57:48.340523+00:00",
+      "capacidad": "cabina-vertical"
+    },
+    {
+      "accion": "mensaje",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "mensaje",
+      "cuando": "2026-11-18T21:58:30.194751+00:00",
+      "texto": "El usuario encargó explícitamente el cambio y autorizó avanzar sin solicitudes adicionales. Se implementará la especificación; la confirmación formal de terminal queda pendiente."
+    },
+    {
+      "accion": "mensaje",
+      "actor": "codex",
+      "tipo_actor": "agente",
+      "modo": "confirmacion",
+      "forma": "mensaje",
+      "cuando": "2026-11-18T22:00:52.112950+00:00",
+      "texto": "Compilación correcta y flujo de inicio, formato, ruleta, cámara y entrega verificado a 1080 × 1920. La tira simulada generó cuatro originales y un JPG. Queda por verificar el arranque automático con el televisor físico."
+    }
+  ]
+}

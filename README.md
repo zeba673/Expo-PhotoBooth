@@ -36,7 +36,7 @@ Un rinconcito para posar, jugar con filtros y llevarse una foto de la Expo. La c
 
 <div align="center">
 
-🟪 `#1C1034` Violeta noche　 🟣 `#7C3AED` Violeta　 💗 `#F472B6` Rosa　 💛 `#FACC15` Amarillo　 🤍 Blanco
+`#111919` Carbón · `#f3f1e8` Marfil · `#9fd2c5` Verde petróleo claro
 
 </div>
 
@@ -45,9 +45,10 @@ Un rinconcito para posar, jugar con filtros y llevarse una foto de la Expo. La c
 ### En Windows
 
 1. Instalá [Node.js LTS](https://nodejs.org/) si todavía no está instalado.
-2. Abrí `INICIAR.bat` con doble clic.
-3. Permití el acceso a la webcam y, si Windows lo pregunta, habilitá la red privada.
-4. Dejá abierta la ventana de Expo PhotoBooth mientras funciona la cabina.
+2. En Configuración → Sistema → Pantalla, elegí el televisor y seleccioná orientación Vertical.
+3. Abrí `INICIAR.bat` con doble clic. Se abre a pantalla completa en el primer monitor vertical que detecte Windows; en un monitor horizontal se abre una ventana vertical de preparación.
+4. Permití el acceso a la webcam y, si Windows lo pregunta, habilitá la red privada.
+5. Dejá abierta la ventana de Expo PhotoBooth mientras funciona la cabina.
 
 La primera vez se descargan las dependencias y Electron. Usá F11 para alternar pantalla completa o Esc para salir de ese modo.
 

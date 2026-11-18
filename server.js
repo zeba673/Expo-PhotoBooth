@@ -25,7 +25,7 @@ export async function startServer({ production = false } = {}) {
   candidates.sort((a, b) => a.priority - b.priority)
   const galleryHost = process.env.PHOTOBOOTH_LAN_IP || candidates[0]?.address || 'localhost'
   const galleryUrl = 'http://' + galleryHost + ':' + port + '/gallery'
-  const galleryQr = await QRCode.toDataURL(galleryUrl, { width: 240, margin: 1, color: { dark: '#1C1034', light: '#FFFFFF' } })
+  const galleryQr = await QRCode.toDataURL(galleryUrl, { width: 240, margin: 1, color: { dark: '#111919', light: '#FFFFFF' } })
 
   const server = createServer(async (req, res) => {
     const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`)

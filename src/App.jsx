@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const BRAND = { purple: '#7C3AED', pink: '#F472B6', yellow: '#FACC15', dark: '#1C1034' }
+const BRAND = { ink: '#111919', paper: '#f3f1e8', accent: '#9fd2c5' }
 const FILTERS = [
   { id: 'none', label: 'Sin filtro', css: 'none' },
   { id: 'mono', label: 'Blanco y negro', css: 'grayscale(1) contrast(1.08)' },
@@ -8,14 +8,14 @@ const FILTERS = [
   { id: 'expo', label: 'Colores Expo', css: 'saturate(1.55) contrast(1.08) hue-rotate(-8deg)' },
 ]
 const POSES = [
-  'Hacé una pose de estrella ✨',
-  'Mandá un corazón con las manos 💖',
-  'Poné cara de sorpresa 😲',
-  'Saludá como una celebridad 👋',
-  'Mostrá tu mejor sonrisa 😊',
-  'Hacé tu pose de superhéroe 🦸',
-  'Posá como tapa de revista 💅',
-  '¡Una pose divertida en equipo! 🤗',
+  'Hacé una pose de estrella',
+  'Mandá un corazón con las manos',
+  'Poné cara de sorpresa',
+  'Saludá como una celebridad',
+  'Mostrá tu mejor sonrisa',
+  'Hacé tu pose de superhéroe',
+  'Posá como tapa de revista',
+  '¡Una pose divertida en equipo!',
 ]
 
 export default function App() {
@@ -273,12 +273,12 @@ export default function App() {
       <main className="stage" key={screen} ref={stageRef} tabIndex={-1}>
         {screen === 'welcome' && <section className="start">
           <div className="start-copy">
-            <span className="kicker"><i /> Cabina de fotos</span>
-            <h1>Tu mejor pose.<br /><em>Tu recuerdo.</em></h1>
+            <span className="kicker"><i /> Expo CET 1 · Laboratorio de Redes I</span>
+            <h1>Cabina<br />fotográfica</h1>
             <p>Sacate una foto o armá una tira de cuatro para llevarte en el celular.</p>
             <button className="button primary" onClick={() => setScreen('choose')}>Empezar sesión <b aria-hidden="true">→</b></button>
           </div>
-          <div className="start-art" aria-hidden="true"><span className="art-star">✦</span><div className="art-print"><span>☺</span><strong>EXPO CET 1</strong></div><div className="art-strip"><i>✦</i><i>♥</i><i>☺</i><i>✧</i></div></div>
+          <div className="start-art" aria-hidden="true"><div className="focus-mark"><i /><i /><i /><i /><span /></div></div>
         </section>}
         {screen === 'choose' && <section className="page">
           <PageTitle back={() => setScreen('welcome')} title="Elegí un formato" text="¿Una foto o cuatro poses?" />
@@ -290,7 +290,7 @@ export default function App() {
         {screen === 'poses' && <section className="page">
           <PageTitle back={() => { clearSpin(); setScreen('choose') }} title="Ruleta de poses" text="Girá la rueda para descubrir tu reto." />
           <div className="pose-layout">
-            <div className="wheel-frame" aria-hidden="true"><span className="pointer">▼</span><div className="wheel" style={{ transform: `rotate(${wheelRotation}deg)` }}>{POSES.map((_, i) => <span key={i} style={{ '--angle': `${i * 45}deg` }}>{i + 1}</span>)}<b>✦</b></div></div>
+            <div className="wheel-frame" aria-hidden="true"><span className="pointer">▼</span><div className="wheel" style={{ transform: `rotate(${wheelRotation}deg)` }}>{POSES.map((_, i) => <span key={i} style={{ '--angle': `${i * 45}deg` }}>{i + 1}</span>)}<b></b></div></div>
             <div className="panel pose-panel">
               <span className="kicker">Reto de pose</span><strong className="pose" aria-live="polite">{pose}</strong>
               <button className="button secondary" disabled={spinning} onClick={spinPose}>{poseChosen ? 'Girar de nuevo' : 'Girar ruleta'} <b aria-hidden="true">↻</b></button>
@@ -347,7 +347,7 @@ function PageTitle({ title, text, back }) {
 }
 
 function FormatArt({ count }) {
-  return <span aria-hidden="true" className={`format-art art-${count}`}>{Array.from({ length: count }, (_, i) => <i key={i}>{['✦', '♥', '☺', '✧'][i]}</i>)}</span>
+  return <span aria-hidden="true" className={`format-art art-${count}`}>{Array.from({ length: count }, (_, i) => <i key={i} />)}</span>
 }
 
 function makePhotoFromFrames(frames, strip) {
@@ -361,28 +361,26 @@ function makePhotoFromFrames(frames, strip) {
   const count = strip ? 4 : 1
   canvas.height = height * count + gap * (count - 1) + footer + pad * 2
   const ctx = canvas.getContext('2d')
-  ctx.fillStyle = BRAND.dark
+  ctx.fillStyle = BRAND.ink
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   frames.forEach((frame, i) => {
     const y = pad + i * (height + gap)
     ctx.drawImage(frame, pad, y, width, height)
-    ctx.strokeStyle = i % 2 ? BRAND.pink : BRAND.yellow
-    ctx.lineWidth = Math.max(8, Math.round(width * 0.009))
+    ctx.strokeStyle = BRAND.paper
+    ctx.lineWidth = Math.max(2, Math.round(width * 0.003))
     ctx.strokeRect(pad + ctx.lineWidth / 2, y + ctx.lineWidth / 2, width - ctx.lineWidth, height - ctx.lineWidth)
   })
   const bandY = canvas.height - footer - pad
-  ctx.fillStyle = BRAND.purple
+  ctx.fillStyle = BRAND.ink
   ctx.fillRect(0, bandY, canvas.width, footer + pad)
-  ctx.fillStyle = BRAND.pink
+  ctx.fillStyle = BRAND.accent
   ctx.fillRect(0, bandY, canvas.width, Math.round(width * 0.009))
-  ctx.fillStyle = BRAND.yellow
-  ctx.fillRect(pad, bandY + footer * 0.32, gap, gap)
-  ctx.fillRect(canvas.width - pad - gap, bandY + footer * 0.32, gap, gap)
+
   ctx.textAlign = 'center'
   ctx.fillStyle = '#fff'
   ctx.font = `900 ${Math.round(width * 0.044)}px system-ui, sans-serif`
   ctx.fillText('EXPO CET 1 · LABORATORIO DE REDES I', canvas.width / 2, bandY + footer * 0.52, width * 0.84)
-  ctx.fillStyle = BRAND.yellow
+  ctx.fillStyle = BRAND.accent
   ctx.font = `700 ${Math.round(width * 0.025)}px system-ui, sans-serif`
   ctx.fillText('Expo PhotoBooth  ·  2026', canvas.width / 2, bandY + footer * 0.82)
   return canvas
